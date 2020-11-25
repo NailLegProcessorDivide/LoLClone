@@ -33,15 +33,13 @@ public abstract class Champion extends Killable {
     }
 
     public void update(float elapsedTime, Game game, ILeagueGameState gs) {
+        System.out.println("duck health: " + HP);
         Vector2f tPos = new Vector2f();
-        System.out.println("updata " + targetPos);
         if (targetMob != null) {
             targetMob.getPosition().get(tPos);
-            System.out.println("update " + targetMob.getPosition());
         }
         else if (targetPos != null){
             targetPos.get(tPos);
-            System.out.println("update " + targetPos);
         }
         else {return;}
         if (tPos.equals(position)) {
@@ -50,7 +48,7 @@ public abstract class Champion extends Killable {
         }
         Vector2f targetDif = new Vector2f(tPos.x - position.x, tPos.y - position.y);
         float dist = Math.min((float) (elapsedTime * getSpeed()), targetDif.length());
-        System.out.println(position);
+        //System.out.println(position);
         Vector2f offset = new Vector2f();
         targetDif.normalize(offset);
         offset.mul(dist);

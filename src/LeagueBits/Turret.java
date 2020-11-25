@@ -12,9 +12,14 @@ import org.joml.Vector2f;
 public class Turret extends Killable {
     private double armour;
     private Sprite sp;
+    private final float ATTACK_RANGE = 5;
+    private float attackTimer;
 
     public Turret(Sprite sprite) {
         super(Geometry.quad(), sprite.getTexture());
+        team = Team.RED;
+        sp = sprite;
+        position = sprite.getPosition();
     }
 
     public boolean isDead() {
@@ -44,6 +49,18 @@ public class Turret extends Killable {
     }
 
     public void update(float elapsedTime, Game game, ILeagueGameState gs) {
+        attackTimer -= elapsedTime;
+        if (attackTimer < 0 ) {
+            for (Champion champ : gs.getChampions()) {
+                if (champ.getTeam() != team && position.distance(champ.getPosition()) < ATTACK_RANGE) {
+                    Projectile proj = new Projectile(position.x, position.y, Projectile.turretFire, champ, 10);
+                    gs.addSprite(proj);
+                    gs.addUpdateable(proj);
+                    attackTimer = 2;
+                    System.out.println("attack turret move out");
+                }
+            }
 
+        }
     }
 }

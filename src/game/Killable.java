@@ -7,11 +7,12 @@ import engine.DamageType;
 import graphics.Mesh;
 import graphics.Sprite;
 import graphics.Texture;
+import org.joml.Vector2f;
 
 public abstract class Killable extends Sprite implements Updateable {
 
     public int HP;
-    private Team team;
+    protected Team team;
 
     public Killable(float x, float y, Mesh mesh, Texture texture) {
         super(x, y, mesh, texture);
@@ -20,9 +21,11 @@ public abstract class Killable extends Sprite implements Updateable {
         super(mesh, texture);
     }
 
-    public abstract boolean isDead();
+    public boolean isDead() {
+        return HP>0;
+    };
 
-    public void damage(int amount, DamageType damageType) {
+    public void damage(float amount, DamageType damageType) {
         double multiplyer = 1;
         if (damageType == DamageType.PHYSICAL) {
             double armour = getArmour();
@@ -38,5 +41,17 @@ public abstract class Killable extends Sprite implements Updateable {
 
     public double getArmour() {
         return 0;
+    }
+    public float getDistance(Vector2f clickPos) {
+        System.out.println(position.distance(clickPos));
+        System.out.println(position);
+        System.out.println(clickPos);
+        return position.distance(clickPos);
+    }
+    public float clickRange(){
+        return 1.5f;
+    }
+    public Team getTeam() {
+        return team;
     }
 }

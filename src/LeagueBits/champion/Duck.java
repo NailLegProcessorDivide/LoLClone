@@ -1,6 +1,7 @@
 package LeagueBits.champion;
 
 import LeagueBits.Champion;
+import LeagueBits.Team;
 import game.Game;
 import graphics.Geometry;
 import graphics.Mesh;
@@ -13,7 +14,8 @@ public class Duck extends Champion {
         super(Geometry.quad, new Texture("res/tex/duckman.png", 4));
         System.out.println("duck");
         setScale(1);
-        baseMoveSpeed = 2.5;
+        team = Team.BLUE;
+        baseMoveSpeed = 6;
     }
 
     public boolean isDead() {
