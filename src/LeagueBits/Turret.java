@@ -3,15 +3,18 @@ package LeagueBits;
 import engine.DamageType;
 import game.Game;
 import game.Killable;
+import graphics.Geometry;
 import graphics.Mesh;
+import graphics.Sprite;
 import graphics.Texture;
 import org.joml.Vector2f;
 
 public class Turret extends Killable {
     private double armour;
+    private Sprite sp;
 
-    public Turret(Mesh mesh, Texture texture) {
-        super(mesh, texture);
+    public Turret(Sprite sprite) {
+        super(Geometry.quad(), sprite.getTexture());
     }
 
     public boolean isDead() {

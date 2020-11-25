@@ -1,6 +1,7 @@
 package game;
 
 import LeagueBits.IWorldObject;
+import LeagueBits.Team;
 import LeagueBits.Updateable;
 import engine.DamageType;
 import graphics.Mesh;
@@ -10,6 +11,7 @@ import graphics.Texture;
 public abstract class Killable extends Sprite implements Updateable {
 
     public int HP;
+    private Team team;
 
     public Killable(float x, float y, Mesh mesh, Texture texture) {
         super(x, y, mesh, texture);

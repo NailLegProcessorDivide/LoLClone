@@ -19,25 +19,38 @@ public class RiftGameState implements ILeagueGameState {
 
     private ArrayList<Sprite> sprites = new ArrayList<Sprite>();
     private ArrayList<Collider> colliders = new ArrayList<Collider>();
+    private ArrayList<Turret> turrets = new ArrayList<Turret>();
+    private ArrayList<Updateable> updateables = new ArrayList<Updateable>();
+    private ArrayList<Killable> killable = new ArrayList<Killable>();
 
     private Game game;
 
     public void initState(Game game) {
         this.game=game;
-        scene = new Scene("res/map/rift.mp");
+        scene = new Scene("res/map/twistedTreeline.mp");
         colliders = scene.getColliders();
 
         camera = new Camera();
         camera.setPosition(75, -75);
-        camera.setScale(16);
+        camera.setScale(48);
         camera.setMinBright(0.25f);
         camera.setMaxBright(1);
 
         Texture playerTex = new Texture("res/tex/duckman.png", 4);
         Champion champ = new Duck();
-        champ.setPosition(0, 0);
+        champ.setPosition(17, -75);
         player = new Player(champ);
         sprites.add(champ);
+
+        updateables.add(player);
+        updateables.add(champ);
+
+        for (Sprite turret : scene.getActionGroups()[1]) {
+            Turret t = new Turret(turret);
+            turrets.add(t);
+            updateables.add(t);
+            killable.add(t);
+        }
     }
 
     public void loadState() {
@@ -48,9 +61,9 @@ public class RiftGameState implements ILeagueGameState {
         time+=elapsedTime;
         float light = (float) (Math.cos(time/5)*0.45+0.5f);
         camera.setMinBright(1);
-
-        player.update(elapsedTime, game, this);
-        player.getChamp().update(elapsedTime, game, this);
+        for (Updateable u : updateables) {
+            u.update(elapsedTime, game, this);
+        }
 
         camera.follow(player.getChamp(), 0.05f);
         //camera.lockPosition(0, 0, scene.getWidth(), scene.getHeight(), game.getWindow());

@@ -12,8 +12,8 @@ public class Duck extends Champion {
     public Duck() {
         super(Geometry.quad, new Texture("res/tex/duckman.png", 4));
         System.out.println("duck");
-        setScale(2);
-        baseMoveSpeed = 15;
+        setScale(1);
+        baseMoveSpeed = 2.5;
     }
 
     public boolean isDead() {

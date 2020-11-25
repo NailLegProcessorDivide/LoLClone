@@ -7,7 +7,7 @@ import org.joml.Vector2d;
 import org.joml.Vector2f;
 import physics.Collider;
 
-public class Player {
+public class Player implements Updateable {
 
 	private Champion campion;
 	
